@@ -4,13 +4,13 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
     const signin = async (req, res) => {
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).send('Informe usuário e senha!')
+        }
         
-        var user = await app.db('users')
+        const user = await app.db('users')
             .where({ email: req.body.email })
             .first()
-        if (!req.body.email || !req.body.password) {
-            return res.status(400).send(users)
-        }
 
         if (!user) return res.status(400).send('Usuário não encontrado!')
 
