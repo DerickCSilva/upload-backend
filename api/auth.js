@@ -8,6 +8,10 @@ module.exports = app => {
             return res.status(400).send('Informe usuário e senha!')
         }
         
+        res.writeHead(200, {
+            'Access-Control-Allow-Origin': '*'
+        })
+        
         const user = await app.db('users')
             .where({ email: req.body.email })
             .first()
